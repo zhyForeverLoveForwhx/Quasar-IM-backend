@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	fmt.Print("Hello World")
+	fmt.Print("Hello World\n")
 	cache.Init()
 }

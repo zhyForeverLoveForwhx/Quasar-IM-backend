@@ -1,11 +1,13 @@
 package conf
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
 	logging "github.com/sirupsen/logrus" //github.com/sirupsen/logrus
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"gopkg.in/ini.v1"
 )
 
@@ -54,7 +56,14 @@ func LoadLocales(s string) {
 }
 
 func MongoDB() {
-	panic("unimplemented")
+	clientOptions := options.Client().ApplyURI("mongodb://" + MongoDBAddr + ":" + MongoDBPort)
+	var err error
+	MongoDBClient, err = mongo.Connect(context.TODO(), clientOptions)
+	if err != nil {
+		logging.Info(err)
+		panic(err)
+	}
+	logging.Info("MongoDB successfully connect\n")
 }
 
 func LoadServer(file *ini.File) {
