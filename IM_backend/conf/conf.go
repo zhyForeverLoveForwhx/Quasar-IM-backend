@@ -2,6 +2,7 @@ package conf
 
 import (
 	"context"
+	"demo/model"
 	"fmt"
 	"strings"
 
@@ -40,19 +41,12 @@ func Init() {
 	LoadServer(file)
 	LoadMysql(file)
 	LoadMongoDB(file)
-	if err := LoadLocales("conf/locales/zh-cn.yaml"); err != nil {
-		logging.Info(err) //日志内容
-		panic(err)
-	}
-	//MySQL
+
+	//connect MySQL
 	path := strings.Join([]string{DbUser, ":", DbPassWord, "@tcp(", DbHost, ":", DbPort, ")/", DbName, "?charset=utf8&parseTime=true"}, "")
 	model.Database(path)
-	//MongoDB
+	//connect MongoDB
 	MongoDB()
-}
-
-func LoadLocales(s string) {
-	panic("unimplemented")
 }
 
 func MongoDB() {
