@@ -19,7 +19,7 @@ var (
 
 // Redis 初始化redis链接
 func Init() {
-	file, err := ini.Load("./conf/config.ini")
+	file, err := ini.Load("../conf/config.ini")
 	if err != nil {
 		fmt.Println("Redis 配置文件读取错误，请检查文件路径:", err)
 	}
