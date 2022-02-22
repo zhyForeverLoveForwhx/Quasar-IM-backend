@@ -18,24 +18,24 @@ var (
 )
 
 // Redis 初始化redis链接
-func init() {
+func Init() {
 	file, err := ini.Load("./conf/config.ini")
 	if err != nil {
 		fmt.Println("Redis 配置文件读取错误，请检查文件路径:", err)
 	}
-	LoadRedisData(file)
-	Redis()
+	LoadRedisData(file) //读取配置信息
+	Redis()             //redis链接
 }
 
 //Redis 在中间件中初始化redis链接
 func Redis() {
-	db, _ := strconv.ParseUint(RedisDbName, 10, 64)
-	client := redis.NewClient(&redis.Options{
+	db, _ := strconv.ParseUint(RedisDbName, 10, 64) //string to uint64
+	client := redis.NewClient(&redis.Options{       //登录Redis
 		Addr: RedisAddr,
 		//Password: conf.RedisPw,  // 无密码，就这样就好了
 		DB: int(db),
 	})
-	_, err := client.Ping().Result()
+	_, err := client.Ping().Result() //验证是否ping通
 	if err != nil {
 		logging.Info(err)
 		panic(err)
@@ -43,6 +43,7 @@ func Redis() {
 	RedisClient = client
 }
 
+//读取配置信息
 func LoadRedisData(file *ini.File) {
 	RedisDb = file.Section("redis").Key("RedisDb").String()
 	RedisAddr = file.Section("redis").Key("RedisAddr").String()
