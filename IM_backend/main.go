@@ -1,11 +1,13 @@
 package main
 
 import (
-	"demo/cache"
+	//"demo/cache"
+	"demo/conf"
 	"fmt"
 )
 
 func main() {
 	fmt.Print("Hello World\n")
-	cache.Init()
+	//cache.Init()
+	conf.Init()
 }

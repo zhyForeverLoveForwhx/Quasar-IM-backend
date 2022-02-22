@@ -57,7 +57,7 @@ func MongoDB() {
 		logging.Info(err)
 		panic(err)
 	}
-	logging.Info("MongoDB successfully connect\n")
+	logging.Info("MongoDB successfully connect")
 }
 
 func LoadServer(file *ini.File) {
