@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-	fmt.Print("Hello World\n")
 	//cache.Init()
 	conf.Init()
 	r := router.NewRouter()
