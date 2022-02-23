@@ -1,6 +1,14 @@
 package router
 
-import "github.com/gin-gonic/gin"
+import (
+	"demo/api"
+	"demo/model"
+
+	"github.com/gin-gonic/gin"
+	logging "github.com/sirupsen/logrus"
+)
+
+var user api.User
 
 func NewRouter() *gin.Engine {
 	r := gin.Default()
@@ -10,7 +18,10 @@ func NewRouter() *gin.Engine {
 	r.Use(gin.Recovery(), gin.Logger())
 	v1 := r.Group("/")
 	{
-		v1.GET("Ping", func(c *gin.Context) {
+		v1.POST("login", func(c *gin.Context) {
+			c.Bind(&user)
+			result := model.DB.Table("users").First(&user)
+			logging.Info(result.RowsAffected)
 			c.JSON(200, "success")
 		})
 	}

@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	logging "github.com/sirupsen/logrus"
 )
 
 var DB *gorm.DB
@@ -29,4 +30,6 @@ func Database(connString string) {
 	db.DB().SetConnMaxLifetime(time.Second * 30)
 	DB = db
 	migration()
+	logging.Info("MySQL successfully connect")
+
 }
