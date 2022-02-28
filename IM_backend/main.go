@@ -1,14 +1,22 @@
 package main
 
 import (
-	//"demo/cache"
 	"demo/conf"
 	"demo/router"
+	"demo/util"
+	"log"
 )
 
 func main() {
-	//cache.Init()
-	conf.Init() //数据库连接初始化
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		log.Fatal("cannot load of config:", err)
+	}
+	//Connect to Mysql
+	conf.Mysql_Conn(config.MysqlDBSource)
+	//Connect to MongoDB
+	conf.MongoDB_Conn(config.MongoDBSource)
+	//conf.Init() //数据库连接初始化
 	r := router.NewRouter()
-	_ = r.Run(conf.HttpPort)
+	_ = r.Run(config.HttpPort)
 }
