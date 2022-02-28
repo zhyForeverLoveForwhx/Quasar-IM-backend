@@ -4,7 +4,6 @@ import (
 	//"demo/cache"
 	"demo/conf"
 	"demo/router"
-	"fmt"
 )
 
 func main() {
