@@ -14,3 +14,4 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 IM_backend/conf/conf.ini
+IM_backend/.vscode/extensions.json

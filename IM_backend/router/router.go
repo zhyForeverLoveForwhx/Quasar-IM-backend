@@ -8,7 +8,8 @@ import (
 	logging "github.com/sirupsen/logrus"
 )
 
-var user api.User
+var user api.User  //保存数据库的数据&user
+var user2 api.User //保存传递过来的数据
 
 func NewRouter() *gin.Engine {
 	r := gin.Default()
@@ -19,10 +20,20 @@ func NewRouter() *gin.Engine {
 	v1 := r.Group("/")
 	{
 		v1.POST("login", func(c *gin.Context) {
-			c.Bind(&user)
-			result := model.DB.Table("users").First(&user)
-			logging.Info(result.RowsAffected)
-			c.JSON(200, "success")
+			c.Bind(&user2)
+			logging.Info(user2)
+			result := model.DB.Where("username = ?", user2.Username).Table("users").First(&user)
+			logging.Info(user)
+			if result.Error != nil {
+				c.JSON(404, "this username does not exist")
+			} else {
+				if user.Password != user2.Password {
+					c.JSON(400, "Wrong with this username and Password")
+					return
+				}
+				c.JSON(200, "login success")
+			}
+
 		})
 	}
 	return r

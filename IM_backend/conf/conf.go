@@ -32,6 +32,7 @@ var (
 	MongoDBPort string
 )
 
+//连接数据库
 func Init() {
 	//读取本地的环境变量
 	file, err := ini.Load("./conf/conf.ini")
