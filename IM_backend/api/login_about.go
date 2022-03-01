@@ -1,7 +1,7 @@
 package api
 
 import (
-	"demo/model"
+	"demo/conf"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,7 +10,7 @@ func Login(c *gin.Context) {
 	var user_searched User //保存数据库的数据&user
 	var user User          //保存传递过来的数据
 	c.Bind(&user)
-	result := model.DB.Where("username = ?", user.Username).Table("users").First(&user_searched)
+	result := conf.DB.Where("username = ?", user.Username).Table("users").First(&user_searched)
 	if result.Error != nil {
 		c.JSON(404, nil)
 	} else {
