@@ -11,7 +11,9 @@ import (
 type Config struct {
 	AppMode             string        `mapstructure:"APP_MODE"`
 	HttpPort            string        `mapstructure:"HTTP_PORT"`
-	RedisDBSource       string        `mapstructure:"REDIS_DB_SOURCE"`
+	RedisAddr           string        `mapstructure:"REDIS_ADDR"`
+	RedisDbName         string        `mapstructure:"REDIS_DBNAME"`
+	RedisPw             string        `mapstructure:"REDIS_PW"`
 	MongoDBSource       string        `mapstructure:"MONGO_DB_SOURCE"`
 	MysqlDBSource       string        `mapstructure:"MYSQL_DB_SOURCE"`
 	DBTESTSOURCE        string        `mapstructure:"DB_TEST_SOURCE"`
