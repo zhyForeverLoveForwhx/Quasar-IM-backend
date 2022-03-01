@@ -2,6 +2,7 @@ package router
 
 import (
 	"demo/api"
+	"demo/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,6 +13,7 @@ func NewRouter() *gin.Engine {
 	//中间件会写入500 这个中间件是十分有必要的
 	//Logger日志
 	r.Use(gin.Recovery(), gin.Logger())
+	r.Use(middleware.Cors())
 	v1 := r.Group("/")
 	{
 		v1.POST("login", api.Login)
