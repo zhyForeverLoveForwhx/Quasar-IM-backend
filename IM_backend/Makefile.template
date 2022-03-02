@@ -1,0 +1,7 @@
+migrateup:
+	migrate -path db/migration -database "mysql://username:password@tcp(xxx.xxx.xxx.xxx:3306)/quasar" -verbose up
+
+migratedown:
+	migrate -path db/migration -database "mysql://username:password@tcp(xxx.xxx.xxx.xxx:3306)/quasar" -verbose down
+
+.PHONY: migrateup migratedown
