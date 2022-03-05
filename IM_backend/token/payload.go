@@ -1,12 +1,19 @@
 package token
 
 import (
+	"errors"
 	"time"
 
 	"go.mongodb.org/mongo-driver/x/mongo/driver/uuid"
 )
 
-// Payload contains the payload data of the token
+//different types of error returned by the VerifyToken function
+var (
+	ErrExpiredToken = errors.New("token has expired")
+	ErrInvalidToken = errors.New("token is invalid")
+)
+
+// Payload(有效负载) contains the payload data of the token
 //ID to 防止token被泄露
 type Payload struct {
 	ID        uuid.UUID `json:"id"`
@@ -29,4 +36,11 @@ func NewPayload(username string, duration time.Duration) (*Payload, error) {
 		ExpiredAt: time.Now().Add(duration),
 	}
 	return Payload, nil
+}
+
+func (payload *Payload) Valid() error{
+	if time.Now().After(payload.ExpiredAt){
+		return ErrExpiredToken
+	}
+	return nil
 }
