@@ -47,7 +47,7 @@ func Redis_Conn(RedisAddr string, RedisDbName string, RedisPw string) {
 	db, _ := strconv.ParseUint(RedisDbName, 10, 64) //string to uint64
 	client := redis.NewClient(&redis.Options{       //登录Redis
 		Addr:     RedisAddr,
-		Password: RedisPw, // 无密码，就这样就好了
+		Password: RedisPw, // 无密码，注释掉就好了
 		DB:       int(db),
 	})
 	_, err := client.Ping().Result() //验证是否ping通
