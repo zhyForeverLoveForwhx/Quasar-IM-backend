@@ -6,6 +6,11 @@ type User struct {
 }
 
 type Response_login struct {
+	Username    string `json:"username"`
+	AccessToken string `json:"token"`
+}
+
+type Request_login struct {
 	Username string `json:"username"`
-	Token    string `json:"token"`
+	Password string `json:"password"`
 }
