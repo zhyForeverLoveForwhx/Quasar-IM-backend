@@ -21,10 +21,18 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (sql.Res
 	return q.db.ExecContext(ctx, createUser, arg.Username, arg.Password)
 }
 
-const getUserByName = `-- name: GetUserByName :execresult
+const getUserByName = `-- name: GetUserByName :one
 SELECT id, username, password, created_at FROM users WHERE username = ? LIMIT 1
 `
 
-func (q *Queries) GetUserByName(ctx context.Context, username sql.NullString) (sql.Result, error) {
-	return q.db.ExecContext(ctx, getUserByName, username)
+func (q *Queries) GetUserByName(ctx context.Context, username sql.NullString) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUserByName, username)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Username,
+		&i.Password,
+		&i.CreatedAt,
+	)
+	return i, err
 }
