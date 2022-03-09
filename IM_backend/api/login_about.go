@@ -18,7 +18,7 @@ func Login(c *gin.Context) {
 			c.JSON(400, nil)
 			return
 		}
-		response := Response_login{Username: user_searched.Username, Token: "token"}
+		response := Response_login{Username: user_searched.Username, AccessToken: "token"}
 		c.JSON(200, response)
 	}
 
