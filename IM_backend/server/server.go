@@ -3,7 +3,9 @@ package server
 import (
 	"demo/api"
 	"demo/middleware"
+	"demo/token"
 	"demo/util"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,21 +14,21 @@ import (
 type Server struct {
 	config util.Config
 	// store      db.Store
-	//tokenMaker token.Maker
-	router *gin.Engine
+	tokenMaker token.Maker
+	router     *gin.Engine
 }
 
 //NewServer creates a new HTTP server and setup routing
 func NewServer(config util.Config) (*Server, error) {
-	// tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
-	// if err != nil {
-	// 	return nil, fmt.Errorf("cannot create token maker: %w", err)
-	// }
+	tokenMaker, err := token.NewJWTMaker(config.TokenSymmetricKey)
+	if err != nil {
+		return nil, fmt.Errorf("cannot create token maker: %w", err)
+	}
 
 	server := &Server{
 		config: config,
 		// store:      store,
-		// tokenMaker: tokenMaker,
+		tokenMaker: tokenMaker,
 	}
 
 	// if _, ok := binding.Validator.Engine().(*validator.Validate); ok {
