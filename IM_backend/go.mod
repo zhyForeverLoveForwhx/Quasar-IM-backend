@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/go-playground/validator/v10 v10.10.0
-	gopkg.in/ini.v1 v1.66.4
+	gopkg.in/ini.v1 v1.66.4 // indirect
 )
 
 require (

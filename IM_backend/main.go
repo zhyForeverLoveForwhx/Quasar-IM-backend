@@ -2,12 +2,13 @@ package main
 
 import (
 	"demo/conf"
-	"demo/router"
+	"demo/server"
 	"demo/util"
 	"log"
 )
 
 func main() {
+	//viper
 	config, err := util.LoadConfig(".")
 	if err != nil {
 		log.Fatal("cannot load of config:", err)
@@ -18,7 +19,16 @@ func main() {
 	conf.MongoDB_Conn(config.MongoDBSource)
 	//Connect to Redis
 	conf.Redis_Conn(config.RedisAddr, config.RedisDbName, config.RedisPw)
-	//conf.Init() //数据库连接初始化
-	r := router.NewRouter()
-	_ = r.Run(config.HttpPort)
+
+	//TODO: Mock
+
+	server, err := server.NewServer(config)
+	if err != nil {
+		log.Fatal("connot create server:", err)
+	}
+
+	err = server.Start(config.ServerAddress)
+	if err != nil {
+		log.Fatal("connot start server:", err)
+	}
 }

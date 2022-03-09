@@ -15,4 +15,5 @@
 # vendor/
 IM_backend/conf/conf.ini
 IM_backend/.vscode/extensions.json
-app.env
+IM_backend/app.env
+IM_backend/Makefile
