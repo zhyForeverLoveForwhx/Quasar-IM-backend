@@ -2,7 +2,7 @@ package api
 
 import "github.com/gin-gonic/gin"
 
-func Get_conv(c *gin.Context) {
+func (server *Server) Get_conv(c *gin.Context) {
 	var Token string
 	c.Bind(Token)
 	if Token != "nil" {

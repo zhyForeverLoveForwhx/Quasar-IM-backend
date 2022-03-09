@@ -1,8 +1,9 @@
 package main
 
 import (
-	"demo/conf"
-	"demo/server"
+	"database/sql"
+	"demo/api"
+	db "demo/db/sqlc"
 	"demo/util"
 	"log"
 )
@@ -13,16 +14,21 @@ func main() {
 	if err != nil {
 		log.Fatal("cannot load of config:", err)
 	}
-	//Connect to Mysql
-	conf.Mysql_Conn(config.MysqlDBSource)
+
 	//Connect to MongoDB
-	conf.MongoDB_Conn(config.MongoDBSource)
+	//conf.MongoDB_Conn(config.MongoDBSource)
 	//Connect to Redis
-	conf.Redis_Conn(config.RedisAddr, config.RedisDbName, config.RedisPw)
+	//conf.Redis_Conn(config.RedisAddr, config.RedisDbName, config.RedisPw)
 
 	//TODO: Mock
 
-	server, err := server.NewServer(config)
+	conn, err := sql.Open("mysql", config.MysqlDBSource)
+	if err != nil {
+		log.Fatal("connot connect to db:", err)
+	}
+
+	store := db.NewStore(conn)
+	server, err := api.NewServer(config, *store)
 	if err != nil {
 		log.Fatal("connot create server:", err)
 	}
