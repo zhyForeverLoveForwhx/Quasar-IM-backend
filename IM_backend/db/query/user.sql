@@ -1,5 +1,5 @@
 -- name: CreateUser :execresult
 INSERT INTO users (username, password) VALUES (?,?);
 
--- name: GetUserByName :execresult
+-- name: GetUserByName :one
 SELECT * FROM users WHERE username = ? LIMIT 1;
