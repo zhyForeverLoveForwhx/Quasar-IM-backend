@@ -20,3 +20,11 @@ type CreateUserParams struct {
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (sql.Result, error) {
 	return q.db.ExecContext(ctx, createUser, arg.Username, arg.Password)
 }
+
+const getUserByName = `-- name: GetUserByName :execresult
+SELECT id, username, password, created_at FROM users WHERE username = ? LIMIT 1
+`
+
+func (q *Queries) GetUserByName(ctx context.Context, username sql.NullString) (sql.Result, error) {
+	return q.db.ExecContext(ctx, getUserByName, username)
+}
