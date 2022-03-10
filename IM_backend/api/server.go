@@ -42,7 +42,8 @@ func NewServer(config util.Config, store db.Store) (*Server, error) {
 
 func (server *Server) setupRouter() {
 	router := gin.Default()
-	v1 := router.Group("/").Use(middleware.Cors())
+	router.Use(middleware.Cors())
+	v1 := router.Group("/")
 	{
 		v1.POST("login", server.Login)
 		v1.POST("verify", server.Verify)
