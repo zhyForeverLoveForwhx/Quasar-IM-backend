@@ -6,6 +6,8 @@ import (
 	db "demo/db/sqlc"
 	"demo/util"
 	"log"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
