@@ -9,7 +9,7 @@ import (
 
 type Querier interface {
 	CreateUser(ctx context.Context, arg CreateUserParams) (sql.Result, error)
-	GetUserByName(ctx context.Context, username sql.NullString) (User, error)
+	GetUserByName(ctx context.Context, username string) (User, error)
 }
 
 var _ Querier = (*Queries)(nil)
