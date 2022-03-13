@@ -10,14 +10,12 @@ type Request_register struct {
 	Password string `json:"password"`
 }
 
-
 type Response_login struct {
-	Username    string `json:"username"`
-	AccessToken string `json:"token"`
+	AccessToken           string        `json:"access_token"`
+	Username string `json:"username"`
 }
 
 type Request_login struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
-

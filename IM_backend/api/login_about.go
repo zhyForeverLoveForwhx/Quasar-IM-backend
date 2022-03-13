@@ -72,20 +72,19 @@ func (server *Server) Login(ctx *gin.Context) {
 		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
 		return
 	}
-	// var user_searched User //保存数据库的数据&user
-	// var user User          //保存传递过来的数据
-	// c.Bind(&user)
 
-	// if result.Error != nil {
-	// 	c.JSON(404, nil)
-	// } else {
-	// 	if user_searched.Password != user.Password {
-	// 		c.JSON(400, nil)
-	// 		return
-	// 	}
-	// 	response := Response_login{Username: user_searched.Username, Token: "token"}
-	// 	c.JSON(200, response)
-	// }
+	accessToken, err := server.tokenMaker.CreateToken(user.Username, server.config.AccessTokenDuration)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	rsp := Response_login{
+		AccessToken: accessToken,
+		Username:    user.Username,
+	}
+
+	ctx.JSON(http.StatusOK, rsp)
 }
 
 func (server *Server) Verify(c *gin.Context) {
