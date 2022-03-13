@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/go-redis/redis"
-	logging "github.com/sirupsen/logrus" //github.com/sirupsen/logrus
+	logging "github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )

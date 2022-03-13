@@ -1,11 +1,12 @@
 package api
 
 import (
-	db "demo/db/sqlc"
-	"demo/middleware"
-	"demo/token"
-	"demo/util"
 	"fmt"
+
+	db "github.com/Awadabang/Quasar-IM/db/sqlc"
+	"github.com/Awadabang/Quasar-IM/middleware"
+	"github.com/Awadabang/Quasar-IM/token"
+	"github.com/Awadabang/Quasar-IM/util"
 
 	"github.com/gin-gonic/gin"
 )
