@@ -4,4 +4,13 @@ migrateup:
 migratedown:
 	migrate -path db/migration -database "mysql://username:password@tcp(xxx.xxx.xxx.xxx:3306)/quasar" -verbose down
 
-.PHONY: migrateup migratedown
+migrateup1:
+	migrate -path db/migration -database "mysql://username:password@tcp(xxx.xxx.xxx.xxx:3306)/quasar" -verbose up 1
+
+migratedown1:
+	migrate -path db/migration -database "mysql://username:password@tcp(xxx.xxx.xxx.xxx:3306)/quasar" -verbose down 1
+
+mock:
+	mockgen -package mockdb -destination db/mock/store.go github.com/Awadabang/Quasar-IM/db/sqlc Store
+
+.PHONY: migrateup migratedown mock

@@ -6,22 +6,28 @@ import (
 	"fmt"
 )
 
+// Store 接口
+type Store interface {
+	Querier
+	//事务添加在下面
+}
+
 // Store 提供了所有查询数据库的函数和事务
-type Store struct {
+type SQLStore struct {
 	*Queries
 	db *sql.DB
 }
 
 // NewStore creates a new Store
-func NewStore(db *sql.DB) *Store {
-	return &Store{
+func NewStore(db *sql.DB) Store {
+	return &SQLStore{
 		db:      db,
 		Queries: New(db),
 	}
 }
 
 //事务执行函数,不对外暴露
-func (store *Store) execTx(ctx context.Context, fn func(*Queries) error) error {
+func (store *SQLStore) execTx(ctx context.Context, fn func(*Queries) error) error {
 	tx, err := store.db.BeginTx(ctx, nil)
 	if err != nil {
 		return err

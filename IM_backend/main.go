@@ -2,10 +2,11 @@ package main
 
 import (
 	"database/sql"
-	"demo/api"
-	db "demo/db/sqlc"
-	"demo/util"
 	"log"
+
+	"github.com/Awadabang/Quasar-IM/api"
+	db "github.com/Awadabang/Quasar-IM/db/sqlc"
+	"github.com/Awadabang/Quasar-IM/util"
 
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
@@ -31,7 +32,7 @@ func main() {
 	}
 
 	store := db.NewStore(conn)
-	server, err := api.NewServer(config, *store)
+	server, err := api.NewServer(config, store)
 	if err != nil {
 		log.Fatal("connot create server:", err)
 	}

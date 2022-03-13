@@ -1,9 +1,10 @@
 package api
 
 import (
-	"demo/serializer"
 	"encoding/json"
 	"fmt"
+
+	"github.com/Awadabang/Quasar-IM/serializer"
 
 	"github.com/go-playground/validator/v10"
 )
