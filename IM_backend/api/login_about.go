@@ -2,10 +2,10 @@ package api
 
 import (
 	"database/sql"
-	db "demo/db/sqlc"
-	"demo/util"
 	"net/http"
 
+	db "github.com/Awadabang/Quasar-IM/db/sqlc"
+	"github.com/Awadabang/Quasar-IM/util"
 	"github.com/gin-gonic/gin"
 	"github.com/lib/pq"
 )
@@ -88,9 +88,5 @@ func (server *Server) Login(ctx *gin.Context) {
 }
 
 func (server *Server) Verify(c *gin.Context) {
-	var Token string
-	c.Bind(Token)
-	if Token != "nil" {
-		c.JSON(200, nil)
-	}
+	c.JSON(200, c.GetHeader("Authorization"))
 }

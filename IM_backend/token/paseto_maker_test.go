@@ -1,9 +1,10 @@
 package token
 
 import (
-	"demo/util"
 	"testing"
 	"time"
+
+	"github.com/Awadabang/Quasar-IM/util"
 
 	"github.com/stretchr/testify/require"
 )
