@@ -46,6 +46,7 @@ func (server *Server) setupRouter() {
 	{
 		v1.POST("login", server.Login)
 		v1.POST("verify", server.Verify)
+		v1.POST("register", server.Register)
 		v1.GET("get_conv", server.Get_conv)
 	}
 
